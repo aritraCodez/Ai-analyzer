@@ -77,3 +77,7 @@ The project includes a production-optimized `Dockerfile` that pre-downloads the 
 
 ---
 *Created with ❤️
+
+<img width="1899" height="909" alt="image" src="https://github.com/user-attachments/assets/23ec931d-f3fe-44eb-b27e-5b9815028475" />
+<img width="1899" height="909" alt="image" src="https://github.com/user-attachments/assets/23ec931d-f3fe-44eb-b27e-5b9815028475" />
+
