@@ -52,32 +52,32 @@ const Signup = () => {
                         <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
                             <Sparkles className="text-blue-600 w-6 h-6" />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-white font-['Outfit']">AutoFlow</span>
+                        <span className="text-xl font-bold tracking-tight text-white font-['Outfit']">ResumeAI</span>
                     </div>
 
                     <div className="space-y-6">
                         <h1 className="text-5xl font-bold leading-tight text-white font-['Outfit']">
-                            Start your <br />
-                            <span className="text-blue-400">journey</span> of <br />
-                            automation.
+                            Unlock your <br />
+                            <span className="text-blue-400">potential</span> with <br />
+                            AI parsing.
                         </h1>
                         <p className="text-white/60 text-lg max-w-sm">
-                            Create your account and unlock the power of intelligent workflows in minutes.
+                            Create your account and start generating high-impact resume analytics today.
                         </p>
                     </div>
 
                     <div className="space-y-4">
                         <div className="flex items-center gap-3 text-white/70">
                             <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                            <span className="text-sm font-medium">Free 14-day trial</span>
+                            <span className="text-sm font-medium">ATS Score Prediction</span>
                         </div>
                         <div className="flex items-center gap-3 text-white/70">
                             <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                            <span className="text-sm font-medium">No credit card required</span>
+                            <span className="text-sm font-medium">Skill Gap Identification</span>
                         </div>
                         <div className="flex items-center gap-3 text-white/70">
                             <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                            <span className="text-sm font-medium">Unlimited automations</span>
+                            <span className="text-sm font-medium">Unlimited Resume Checks</span>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@ const Signup = () => {
                 <div className="p-8 md:p-12 flex flex-col justify-center bg-black/40">
                     <div className="mb-10 lg:hidden flex items-center gap-2">
                         <Sparkles className="text-blue-500 w-6 h-6" />
-                        <span className="text-xl font-bold text-white font-['Outfit']">AutoFlow</span>
+                        <span className="text-xl font-bold text-white font-['Outfit']">ResumeAI</span>
                     </div>
 
                     <div className="mb-10">

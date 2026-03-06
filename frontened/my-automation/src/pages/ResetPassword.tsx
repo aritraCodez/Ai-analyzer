@@ -49,7 +49,7 @@ const ResetPassword = () => {
             <div className="max-w-[450px] w-full rounded-[2rem] overflow-hidden glass z-10 p-8 md:p-12 flex flex-col justify-center bg-black/40">
                 <div className="mb-8 flex items-center justify-center gap-2">
                     <Sparkles className="text-indigo-500 w-6 h-6" />
-                    <span className="text-xl font-bold text-white font-['Outfit']">AutoFlow</span>
+                    <span className="text-xl font-bold text-white font-['Outfit']">ResumeAI</span>
                 </div>
 
                 <div className="mb-10">

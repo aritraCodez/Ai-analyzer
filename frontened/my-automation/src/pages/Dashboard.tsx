@@ -3,17 +3,16 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../components/AuthContext'
 import { Activity, Sparkles, FileText, TrendingUp, BarChart3, Plus, AlertCircle } from 'lucide-react'
 
-const SKILL_GAPS = [
-    { name: 'React Query', count: 12, percent: 85 },
-    { name: 'Docker', count: 8, percent: 65 },
-    { name: 'Redis', count: 7, percent: 55 },
-    { name: 'GraphQL', count: 5, percent: 45 },
-    { name: 'Testing', count: 4, percent: 35 },
-]
 
 export default function Dashboard() {
     const { user } = useAuth()
     const [analytics, setAnalytics] = useState<any[]>([])
+    const [stats, setStats] = useState({
+        total: 0,
+        avgScore: 0,
+        topGap: 'None',
+        skillGaps: [] as { name: string, count: number, percent: number }[]
+    })
 
     useEffect(() => {
         const fetchAnalytics = async () => {
@@ -21,7 +20,39 @@ export default function Dashboard() {
                 const response = await fetch(`http://localhost:8000/api/v1/resumes/analytics/${user?.id}`)
                 const data = await response.json()
                 if (data.status === 'success') {
-                    setAnalytics(data.data)
+                    const results = data.data
+                    setAnalytics(results)
+
+                    if (results.length > 0) {
+                        const total = results.length
+                        const avgScore = results.reduce((sum: number, item: any) => sum + item.ats_score, 0) / total
+
+                        // Calculate skill gaps
+                        const gapMap: Record<string, number> = {}
+                        results.forEach((item: any) => {
+                            if (item.missing_skills) {
+                                item.missing_skills.forEach((skill: string) => {
+                                    gapMap[skill] = (gapMap[skill] || 0) + 1
+                                })
+                            }
+                        })
+
+                        const sortedGaps = Object.entries(gapMap)
+                            .map(([name, count]) => ({
+                                name,
+                                count,
+                                percent: (count / total) * 100
+                            }))
+                            .sort((a, b) => b.count - a.count)
+                            .slice(0, 5)
+
+                        setStats({
+                            total,
+                            avgScore: Math.round(avgScore),
+                            topGap: sortedGaps[0]?.name || 'N/A',
+                            skillGaps: sortedGaps
+                        })
+                    }
                 }
             } catch (err) {
                 console.error('Failed to fetch analytics', err)
@@ -40,7 +71,7 @@ export default function Dashboard() {
                             <Sparkles className="text-white w-7 h-7" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold font-['Outfit'] tracking-tight">AI Resume Analytics</h1>
+                            <h1 className="text-2xl font-bold font-['Outfit'] tracking-tight">ResumeAI Analytics</h1>
                             <p className="text-white/40 text-sm font-medium">Tracking your career growth and ATS performance</p>
                         </div>
                     </div>
@@ -60,9 +91,9 @@ export default function Dashboard() {
                     <div className="lg:col-span-8 space-y-8">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                { label: 'Total Analyses', value: analytics.length || '12', sub: '+2 this month', icon: FileText },
-                                { label: 'Avg ATS Score', value: '78%', sub: '+5% improvement', icon: TrendingUp },
-                                { label: 'Top Skill Gap', value: 'Kubernetes', sub: 'In 65% of jobs', icon: AlertCircle }
+                                { label: 'Total Analyses', value: stats.total.toString(), sub: 'Lifetime data', icon: FileText },
+                                { label: 'Avg ATS Score', value: `${stats.avgScore}%`, sub: 'Across all resumes', icon: TrendingUp },
+                                { label: 'Top Skill Gap', value: stats.topGap, sub: 'Most frequent gap', icon: AlertCircle }
                             ].map((stat, i) => (
                                 <div key={i} className="p-6 rounded-3xl glass border-white/5 bg-linear-to-br from-white/5 to-transparent">
                                     <stat.icon className="w-5 h-5 text-indigo-400 mb-4" />
@@ -82,19 +113,26 @@ export default function Dashboard() {
                                 </div>
                             </div>
                             <div className="h-64 w-full flex items-end gap-2 pt-4">
-                                {[65, 72, 68, 85, 92, 88].map((score, i) => (
+                                {analytics.slice(0, 7).reverse().map((item: any, i: number) => (
                                     <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
                                         <div
                                             className="w-full bg-indigo-600/40 rounded-t-lg transition-all duration-500 hover:bg-indigo-500 relative"
-                                            style={{ height: `${score}%` }}
+                                            style={{ height: `${item.ats_score}%` }}
                                         >
                                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-indigo-600 text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                                {score}%
+                                                {Math.round(item.ats_score)}%
                                             </div>
                                         </div>
-                                        <span className="text-[10px] text-white/20 font-bold uppercase">Mar {i + 1}</span>
+                                        <span className="text-[10px] text-white/20 font-bold uppercase">
+                                            {new Date(item.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                        </span>
                                     </div>
                                 ))}
+                                {analytics.length === 0 && (
+                                    <div className="w-full h-full flex items-center justify-center text-white/10 italic">
+                                        No data to visualize
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -107,7 +145,7 @@ export default function Dashboard() {
                                 <h2 className="text-lg font-bold font-['Outfit']">Frequent Gaps</h2>
                             </div>
                             <div className="flex-1 space-y-4">
-                                {SKILL_GAPS.map((gap, i) => (
+                                {stats.skillGaps.length > 0 ? stats.skillGaps.map((gap, i) => (
                                     <div key={i} className="space-y-2">
                                         <div className="flex justify-between text-xs font-bold">
                                             <span className="text-white/60">{gap.name}</span>
@@ -120,13 +158,23 @@ export default function Dashboard() {
                                             ></div>
                                         </div>
                                     </div>
-                                ))}
+                                )) : (
+                                    <p className="text-xs text-white/20 italic">Analyze resumes to see skill gaps</p>
+                                )}
                             </div>
                             <div className="space-y-4 pt-4 border-t border-white/5">
                                 <h3 className="text-xs font-bold text-white/30 uppercase tracking-widest">Recommended Focus</h3>
                                 <div className="p-4 rounded-2xl bg-indigo-600/10 border border-indigo-500/20">
-                                    <p className="text-sm font-medium text-indigo-300">Boost your profile by learning React Query.</p>
-                                    <p className="text-[10px] text-indigo-400/60 mt-1">Found in 45% of your target job descriptions.</p>
+                                    <p className="text-sm font-medium text-indigo-300">
+                                        {stats.topGap !== 'N/A'
+                                            ? `Boost your profile by learning ${stats.topGap}.`
+                                            : "Start analyzing to get recommendations."}
+                                    </p>
+                                    {stats.topGap !== 'N/A' && (
+                                        <p className="text-[10px] text-indigo-400/60 mt-1">
+                                            This is your most frequent missing skill.
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>

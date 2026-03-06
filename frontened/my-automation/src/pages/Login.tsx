@@ -70,28 +70,28 @@ const Login = () => {
                         <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
                             <Sparkles className="text-indigo-600 w-6 h-6" />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-white font-['Outfit']">AutoFlow</span>
+                        <span className="text-xl font-bold tracking-tight text-white font-['Outfit']">ResumeAI</span>
                     </div>
 
                     <div className="space-y-6">
                         <h1 className="text-5xl font-bold leading-tight text-white font-['Outfit']">
-                            Automate your <br />
-                            <span className="text-indigo-400">workspace</span> with <br />
-                            intelligence.
+                            Master your <br />
+                            <span className="text-indigo-400">career</span> with <br />
+                            AI precision.
                         </h1>
                         <p className="text-white/60 text-lg max-w-sm">
-                            Join over 10,000+ professionals who automate their repetitive tasks seamlessly.
+                            Analyze your resume against any job description and optimize for ATS success instantly.
                         </p>
                     </div>
 
                     <div className="flex -space-x-4">
                         {[1, 2, 3, 4].map((i) => (
                             <div key={i} className="w-12 h-12 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm overflow-hidden ring-4 ring-black/20">
-                                <img src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="User" />
+                                <img src={`https://i.pravatar.cc/150?u=${i + 20}`} alt="User" />
                             </div>
                         ))}
                         <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-white/20 bg-indigo-600 text-white text-xs font-bold ring-4 ring-black/20">
-                            +2k
+                            +5k
                         </div>
                     </div>
                 </div>
@@ -100,12 +100,12 @@ const Login = () => {
                 <div className="p-8 md:p-12 flex flex-col justify-center bg-black/40">
                     <div className="mb-10 lg:hidden flex items-center gap-2">
                         <Sparkles className="text-indigo-500 w-6 h-6" />
-                        <span className="text-xl font-bold text-white font-['Outfit']">AutoFlow</span>
+                        <span className="text-xl font-bold text-white font-['Outfit']">ResumeAI</span>
                     </div>
 
                     <div className="mb-10">
                         <h2 className="text-3xl font-bold text-white mb-2 font-['Outfit']">Welcome Back</h2>
-                        <p className="text-white/50 text-base font-medium">Log in to your dashboard</p>
+                        <p className="text-white/50 text-base font-medium">Log in to analyze your resume</p>
                     </div>
 
                     {error && (

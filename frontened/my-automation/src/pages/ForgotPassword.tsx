@@ -16,15 +16,32 @@ const ForgotPassword = () => {
         setMessage('');
 
         try {
+            // Check if email exists in our local DB first
+            const checkRes = await fetch(`http://localhost:8000/api/v1/resumes/check-email/${email}`);
+            const checkData = await checkRes.json();
+
+            if (checkData.status === 'success' && !checkData.exists) {
+                setError('Email is not registered. Kindly create an account first.');
+                setLoading(false);
+                return;
+            }
+
             const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
                 redirectTo: `${window.location.origin}/reset-password`,
             });
 
-            if (resetError) throw resetError;
+            if (resetError) {
+                if (resetError.message.toLowerCase().includes('not found') || resetError.status === 422) {
+                    setError('Email is not registered. Kindly create an account first.');
+                } else {
+                    setError(resetError.message);
+                }
+                return;
+            }
 
             setMessage('Check your email for the password reset link.');
         } catch (err: any) {
-            setError(err.message);
+            setError('An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -43,7 +60,7 @@ const ForgotPassword = () => {
                     </Link>
                     <div className="flex items-center gap-2">
                         <Sparkles className="text-indigo-500 w-6 h-6" />
-                        <span className="text-xl font-bold text-white font-['Outfit']">AutoFlow</span>
+                        <span className="text-xl font-bold text-white font-['Outfit']">ResumeAI</span>
                     </div>
                 </div>
 
