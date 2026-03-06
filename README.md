@@ -8,7 +8,7 @@
 - **📊 Real-Time Analytics**: Dynamic dashboard showing total analyses, average scores, and most frequent skill gaps across your target roles.
 - **📈 Score Tracking**: Visualizes your ATS score trends over time to track your progress as you optimize your resume.
 - **🛡️ Secure Auth**: Integrated with Supabase Auth (Email/Password & Google OAuth2) with custom email verification and password reset flows.
-- **🌐 Cloud-Ready**: Fully containerized with Docker and optimized for instant deployment on platforms like Render.
+- **🌐 Cloud-Ready**: Fully containerized with Docker and optimized for instant deployment on platforms.
 
 ## 🛠️ Tech Stack
 
