@@ -1,0 +1,27 @@
+# FastAPI and ASGI server
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Authentication and Security
+python-jose[cryptography]
+passlib[argon2]
+python-multipart
+
+# Data Validation
+pydantic
+pydantic-settings
+
+# Development and Testing
+pytest
+pytest-asyncio
+httpx
+
+# Automation & Scheduling
+playwright
+apscheduler
+supabase
