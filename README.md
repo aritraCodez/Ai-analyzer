@@ -20,8 +20,8 @@
 - **Task Runner**: Uvicorn
 
 ### **Frontend**
-- **Library**: React (with Vite)
-- **Styling**: Vanilla CSS + Tailwind CSS (for layout)
+- **Library**: React,typescript (with Vite)
+- **Styling**: Vanilla CSS + Tailwind CSS (for layout),shadcn
 - **Icons**: Lucide React
 - **Authentication**: Supabase JS SDK
 
