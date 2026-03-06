@@ -57,8 +57,8 @@ const Analyze = () => {
                             <Sparkles className="text-white w-8 h-8" />
                         </div>
                         <div>
-                            <h1 className="text-3xl font-bold font-['Outfit'] tracking-tight">AI Resume Analyzer</h1>
-                            <p className="text-white/40 text-sm font-medium">Verify your ATS compatibility in seconds</p>
+                            <h1 className="text-3xl font-bold font-['Outfit'] tracking-tight">AI Resume Engine</h1>
+                            <p className="text-white/40 text-sm font-medium">Identify gaps and optimize your career path</p>
                         </div>
                     </div>
                 </div>

@@ -108,3 +108,13 @@ async def get_analytics(user_id: str, db: Session = Depends(get_db)):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+@router.get("/check-email/{email}")
+async def check_email(email: str, db: Session = Depends(get_db)):
+    try:
+        user = db.query(UserTable).filter(UserTable.email == email).first()
+        return {
+            "status": "success",
+            "exists": user is not None
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
