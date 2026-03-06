@@ -11,8 +11,6 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from?.pathname || '/';
-
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const error = queryParams.get('error');
@@ -37,7 +35,7 @@ const Login = () => {
 
             if (authError) throw authError;
 
-            navigate(from, { replace: true });
+            navigate('/dashboard', { replace: true });
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -50,7 +48,7 @@ const Login = () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${window.location.origin}${from}`,
+                    redirectTo: `${window.location.origin}/dashboard`,
                 },
             });
             if (error) throw error;

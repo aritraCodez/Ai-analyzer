@@ -100,7 +100,8 @@ const Signup = () => {
                                 <CheckCircle2 className="w-10 h-10 text-green-500" />
                             </div>
                             <h3 className="text-2xl font-bold text-white font-['Outfit']">Account Created!</h3>
-                            <p className="text-white/60">Redirecting you to the login page...</p>
+                            <p className="text-white/60">Kindly check your email to verify your account.</p>
+                            <p className="text-white/40 text-sm italic">Redirecting you to the login page...</p>
                         </div>
                     ) : (
                         <>
@@ -119,7 +120,7 @@ const Signup = () => {
                                             type="text"
                                             required
                                             className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-4 text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all font-medium"
-                                            placeholder="John Doe"
+                                            placeholder="user name"
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
                                         />
