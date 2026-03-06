@@ -25,3 +25,10 @@ httpx
 playwright
 apscheduler
 supabase
+
+# AI and Document Processing
+sentence-transformers
+scikit-learn
+python-docx
+pypdf2
+torch

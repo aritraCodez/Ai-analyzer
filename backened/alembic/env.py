@@ -6,7 +6,9 @@ from sqlalchemy import pool
 from alembic import context
 from app.core.config import settings
 from app.db.database import Base
-from app.models import *  # Import all models so Base.metadata is populated
+from app.models.user import UserTable
+from app.models.resume import ResumeTable
+from app.models.analysis import AnalysisResultTable
 import urllib.parse
 
 database_url = f'postgresql+psycopg2://{settings.DB_USER}:{urllib.parse.quote(settings.DB_PASSWORD)}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}?sslmode=require'
