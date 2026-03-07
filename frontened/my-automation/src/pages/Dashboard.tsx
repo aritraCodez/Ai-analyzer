@@ -8,10 +8,16 @@ export default function Dashboard() {
     const { user } = useAuth()
     const [analytics, setAnalytics] = useState<any[]>([])
     const [stats, setStats] = useState({
-        total: 0,
-        avgScore: 0,
-        topGap: 'None',
-        skillGaps: [] as { name: string, count: number, percent: number }[]
+        total: 12,
+        avgScore: 78,
+        topGap: 'Kubernetes',
+        skillGaps: [
+            { name: 'React Query', count: 12, percent: 85 },
+            { name: 'Docker', count: 8, percent: 65 },
+            { name: 'Redis', count: 7, percent: 55 },
+            { name: 'GraphQL', count: 5, percent: 45 },
+            { name: 'Testing', count: 4, percent: 35 },
+        ] as { name: string, count: number, percent: number }[]
     })
 
     useEffect(() => {
@@ -51,6 +57,20 @@ export default function Dashboard() {
                             avgScore: Math.round(avgScore),
                             topGap: sortedGaps[0]?.name || 'N/A',
                             skillGaps: sortedGaps
+                        })
+                    } else {
+                        // Reset to dummy if zero results (e.g. after deletion or for new user)
+                        setStats({
+                            total: 12,
+                            avgScore: 78,
+                            topGap: 'Kubernetes',
+                            skillGaps: [
+                                { name: 'React Query', count: 12, percent: 85 },
+                                { name: 'Docker', count: 8, percent: 65 },
+                                { name: 'Redis', count: 7, percent: 55 },
+                                { name: 'GraphQL', count: 5, percent: 45 },
+                                { name: 'Testing', count: 4, percent: 35 },
+                            ]
                         })
                     }
                 }
@@ -113,26 +133,33 @@ export default function Dashboard() {
                                 </div>
                             </div>
                             <div className="h-64 w-full flex items-end gap-2 pt-4">
-                                {analytics.slice(0, 7).reverse().map((item: any, i: number) => (
-                                    <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
+                                {analytics.length > 0 ? analytics.slice(0, 7).reverse().map((item: any, i: number) => (
+                                    <div key={i} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end">
                                         <div
-                                            className="w-full bg-indigo-600/40 rounded-t-lg transition-all duration-500 hover:bg-indigo-500 relative"
-                                            style={{ height: `${item.ats_score}%` }}
+                                            className="w-full bg-linear-to-t from-indigo-600 to-indigo-400 rounded-lg transition-all duration-500 hover:brightness-125 relative shadow-lg shadow-indigo-500/10"
+                                            style={{ height: `${Math.max(8, item.ats_score)}%` }}
                                         >
-                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-indigo-600 text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-indigo-600 text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10 whitespace-nowrap">
                                                 {Math.round(item.ats_score)}%
                                             </div>
                                         </div>
-                                        <span className="text-[10px] text-white/20 font-bold uppercase">
+                                        <span className="text-[10px] text-white/20 font-bold uppercase mt-2">
                                             {new Date(item.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                         </span>
                                     </div>
-                                ))}
-                                {analytics.length === 0 && (
-                                    <div className="w-full h-full flex items-center justify-center text-white/10 italic">
-                                        No data to visualize
+                                )) : [65, 72, 68, 85, 92, 88].map((score, i) => (
+                                    <div key={i} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end">
+                                        <div
+                                            className="w-full bg-linear-to-t from-indigo-600/40 to-indigo-400/20 rounded-lg transition-all duration-500 hover:bg-indigo-500 relative"
+                                            style={{ height: `${score}%` }}
+                                        >
+                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-indigo-600 text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10 whitespace-nowrap">
+                                                {score}%
+                                            </div>
+                                        </div>
+                                        <span className="text-[10px] text-white/20 font-bold uppercase mt-2">Sample {i + 1}</span>
                                     </div>
-                                )}
+                                ))}
                             </div>
                         </div>
                     </div>
