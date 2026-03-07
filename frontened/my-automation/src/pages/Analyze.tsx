@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Upload, FileText, Send, AlertCircle, Loader2, Sparkles, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Upload, FileText, Send, AlertCircle, Loader2, Sparkles, ArrowRight, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../components/AuthContext';
 
 const Analyze = () => {
@@ -61,6 +62,13 @@ const Analyze = () => {
                             <p className="text-white/40 text-sm font-medium">Identify gaps and optimize your career path</p>
                         </div>
                     </div>
+
+                    <Link to="/dashboard">
+                        <button className="px-6 py-3 border border-white/10 hover:bg-white/5 rounded-xl font-bold transition-all flex items-center gap-2 group">
+                            <LayoutDashboard className="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform" />
+                            Dashboard
+                        </button>
+                    </Link>
                 </div>
 
                 {error && (
@@ -217,12 +225,20 @@ const Analyze = () => {
                             </div>
                         </div>
 
-                        <button
-                            onClick={() => setResult(null)}
-                            className="w-full py-4 border border-white/10 hover:bg-white/5 rounded-2xl font-bold transition-all"
-                        >
-                            Analyze Another Resume
-                        </button>
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <button
+                                onClick={() => setResult(null)}
+                                className="flex-1 py-4 border border-white/10 hover:bg-white/5 rounded-2xl font-bold transition-all"
+                            >
+                                Analyze Another Resume
+                            </button>
+                            <Link to="/dashboard" className="flex-1">
+                                <button className="w-full py-4 bg-indigo-600/10 border border-indigo-500/20 hover:bg-indigo-600/20 text-indigo-400 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 group">
+                                    <LayoutDashboard className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                                    Go to Dashboard
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 )}
             </div>
