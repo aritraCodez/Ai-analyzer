@@ -2,6 +2,8 @@
 
 **ResumeAI** is a modern, full-stack application designed to help job seekers optimize their resumes through deep AI analysis. It identifies critical skill gaps, provides real-time ATS scoring, and visualizes career growth potential using a premium, dark-mode analytics dashboard.
 
+🔗 **Visit Live Site**: [https://ai-analyzer-e3u6.onrender.com](https://ai-analyzer-e3u6.onrender.com)
+
 ## ✨ Key Features
 
 - **🤖 AI Resume Engine**: Deep-scans resumes against job descriptions using `SentenceTransformers` to find missing keywords and hidden requirements.
